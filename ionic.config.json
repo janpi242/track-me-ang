@@ -1,7 +1,8 @@
 {
   "name": "track-me-ang",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }
