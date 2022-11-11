@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">track-me-ang</string>
+    <string name="title_activity_main">track-me-ang</string>
+    <string name="package_name">track.me.ang</string>
+    <string name="custom_url_scheme">track.me.ang</string>
+</resources>
