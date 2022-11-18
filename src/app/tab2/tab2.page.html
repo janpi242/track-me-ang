@@ -1,21 +1,20 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      People
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            People
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-        <ion-icon name="person-add-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <div class="fullscreen-container ion-text-center ion-padding ion-justify-content-center ion-align-items-center">
+        <p>You have to be <strong><a (click)="openLoginModal()">logged in</a></strong> to be able manage contacts.</p>
+    </div>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="person-add-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
