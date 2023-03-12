@@ -3,15 +3,74 @@
     <ion-buttons slot="start">
       <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
     </ion-buttons>
-    <ion-title>Welcome</ion-title>
+    <ion-title>Log-in</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="confirm()">Confirm</ion-button>
+      <ion-button type="submit" (click)="onSubmit(f)">Confirm</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
-  <ion-item>
-    <ion-label position="stacked">Your name</ion-label>
-    <ion-input [(ngModel)]="name" placeholder="Your name"></ion-input>
-  </ion-item>
+<ion-content class="ion-text-center">
+  <div class="vertical-center">
+    
+    <h1>Hi,</h1>
+    <h4>{{ isLoginModal ? "Please, log in." : "Sign up!" }}</h4>
+    
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      
+      <ion-item *ngIf="!isLoginModal">
+        <ion-label position="floating">Your display name</ion-label>
+        <ion-input
+          ngModel
+          name="name"
+          type="text"
+          required
+          #nameCtrl="ngModel"
+        ></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Your email</ion-label>
+        <ion-input
+          ngModel
+          name="email"
+          type="email"
+          email
+          required
+          #emailCtrl="ngModel"
+        ></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Your password</ion-label>
+        <ion-input
+          ngModel
+          name="password"
+          type="password"
+          required
+          minlength="8"
+          #passwordCtrl="ngModel"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="!isLoginModal">
+        <ion-label position="floating">Repeat password</ion-label>
+        <ion-input
+          ngModel
+          name="repeatedPassword"
+          type="password"
+          required
+          #repetedPasswordCtrl="ngModel"
+        ></ion-input>
+      </ion-item>
+    </form>
+
+    <p class="ion-margin-top" *ngIf="isLoginModal">
+      If you don't have account, <a (click)="changeToSignup()">sign up</a> for
+      one!
+    </p>
+
+    <p class="ion-margin-top" *ngIf="!isLoginModal">
+      Allready have an account? <a (click)="changeToLogin()">Log in!</a>
+    </p>
+  </div>
 </ion-content>

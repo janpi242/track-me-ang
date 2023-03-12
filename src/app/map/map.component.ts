@@ -12,6 +12,7 @@ import * as L from 'leaflet'
 export class MapComponent implements AfterViewInit, OnInit {
   private map
   private zoom = 13
+  private interval
   constructor(private alertController: AlertController) {}
 
   ngOnInit(): void {
@@ -31,7 +32,6 @@ export class MapComponent implements AfterViewInit, OnInit {
     ) {
       const platform = Capacitor.getPlatform()
       if (platform !== 'web') {
-        this.showInfo('inside')
         Geolocation.requestPermissions().then(async (permission) => {
           this.setCurrentPosition()
         })
@@ -40,6 +40,7 @@ export class MapComponent implements AfterViewInit, OnInit {
       }
     } else {
       this.setCurrentPosition()
+      this.watchPosition()
     }
   }
 
@@ -50,17 +51,6 @@ export class MapComponent implements AfterViewInit, OnInit {
       message:
         '<p>In order to be able to track your position, geolocotaion services must be turned on on this device.</p>' +
         '<p>Please, turn them on and rester application.</p>',
-      buttons: ['OK'],
-    })
-
-    await alert.present()
-  }
-
-  async showInfo(info: string) {
-    const alert = await this.alertController.create({
-      header: 'Info',
-      subHeader: 'System message.',
-      message: info,
       buttons: ['OK'],
     })
 
@@ -102,5 +92,12 @@ export class MapComponent implements AfterViewInit, OnInit {
         this.map.invalidateSize()
       }, 1)
     })
+  }
+
+  private watchPosition(): void {
+    this.interval = setInterval(async () => {
+      const position = await Geolocation.getCurrentPosition()
+      console.log(position);
+    }, 10000)
   }
 }
