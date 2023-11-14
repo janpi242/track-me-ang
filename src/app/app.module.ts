@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { LoginModalComponent } from './login-modal/login-modal.component'
 import { HttpClientModule } from '@angular/common/http'
+import { UserService } from './services/user.service'
 
 @NgModule({
   declarations: [AppComponent, LoginModalComponent],
@@ -18,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http'
     FormsModule,
     HttpClientModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, UserService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

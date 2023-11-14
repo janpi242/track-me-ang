@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { ModalController } from '@ionic/angular'
 import { LoginModalComponent } from '../login-modal/login-modal.component'
+import { UserService } from '../services/user.service'
 
 @Component({
   selector: 'app-tab2',
@@ -8,7 +9,7 @@ import { LoginModalComponent } from '../login-modal/login-modal.component'
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page {
-  constructor(private modalCtrl: ModalController) {}
+  constructor(private modalCtrl: ModalController, private userService: UserService) { }
 
   async openLoginModal() {
     const modal = await this.modalCtrl.create({

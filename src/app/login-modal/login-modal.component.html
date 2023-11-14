@@ -14,10 +14,11 @@
     
     <h1>Hi,</h1>
     <h4>{{ isLoginModal ? "Please, log in." : "Sign up!" }}</h4>
+    <div>{{isUserLoggedIn}},{{username}}</div>
     
     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
       
-      <ion-item *ngIf="!isLoginModal">
+      <ion-item *ngIf="!isLoginModal">        
         <ion-label position="floating">Your display name</ion-label>
         <ion-input
           ngModel

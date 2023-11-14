@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms'
 
 import { ModalController } from '@ionic/angular'
 import { RestService } from '../services/rest.service'
+import { UserService } from '../services/user.service'
 
 @Component({
   selector: 'app-login-modal',
@@ -16,8 +17,12 @@ export class LoginModalComponent {
   repeatedPassword: string
   isLoginModal = true
 
+  isUserLoggedIn = false
+  username = '123'
+
   constructor(private modalCtrl: ModalController,
-    private restService: RestService,) { }
+    private restService: RestService,
+    private userService: UserService) {}
 
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel')
@@ -28,17 +33,28 @@ export class LoginModalComponent {
   }
 
   onSubmit(form: NgForm) {
-    console.log('submitting');
+    console.log(`is form valid?: ${form.valid}`);
     if (!form.valid) {
       return
     }
-    console.log('valid');
-    const email = form.value.name
+    const email = form.value.email
     const password = form.value.password
     if (!this.isLoginModal) {
+      console.log('submiting');
       const name = form.value.name
       const repeatedPassword = form.value.repeatedPassword
-      this.restService.register({ email, password, name, repeatedPassword })
+      this.restService.getToken().subscribe((resp) => {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        this.restService.register({ email, password, name, password_confirmation: repeatedPassword })
+          .subscribe(responseData => { console.log(responseData) });
+      })
+    } else {
+      this.restService.login({ email, password })
+        .subscribe(responseData => {
+          console.log(responseData);
+          console.log(this.userService)
+          this.userService.logInUser('usernameXXX', responseData.access_token)
+        })
     }
   }
 

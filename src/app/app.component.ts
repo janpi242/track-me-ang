@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RestService } from './services/rest.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(private restService: RestService) {
+    // this.restService.getToken().subscribe((resp) => {
+      this.restService.logOut().subscribe((response) => {
+        console.log(response);
+      })
+    // })
+  }
 }
