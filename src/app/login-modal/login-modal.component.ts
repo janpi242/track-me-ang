@@ -54,6 +54,7 @@ export class LoginModalComponent {
           console.log(responseData);
           console.log(this.userService)
           this.userService.logInUser('usernameXXX', responseData.access_token)
+          this.confirm()
         })
     }
   }

@@ -8,8 +8,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['tab3.page.scss'],
 })
 export class Tab3Page implements OnInit {
-  // isUserLoggedIn = false
-  // username = '123'
   public loggedIn$: Observable<boolean>
 
   constructor(public userService: UserService) { }
@@ -18,12 +16,4 @@ export class Tab3Page implements OnInit {
     this.loggedIn$ = this.userService.getLoggedIn();
     this.loggedIn$.subscribe((loggedIn) => { console.log(loggedIn) })
   }
-  // getLoggedIn(): void {
-  //   this.userService.getLoggedIn()
-  //     .subscribe(isUserLoggedIn => this.isUserLoggedIn = isUserLoggedIn)
-  // }
-  // getUsername(): void {
-  //   this.userService.getUsername()
-  //     .subscribe(username => this.username = username)
-  // }
 }

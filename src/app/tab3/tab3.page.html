@@ -5,12 +5,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+ 
+  <ion-list>
+    <ion-item>
+      <ion-label *ngIf="(loggedIn$ | async)===false">Log in</ion-label>
+      <ion-label *ngIf="loggedIn$ | async">Log out</ion-label>
+    </ion-item>
+  </ion-list>
 
-  <app-explore-container name="Tab 3 page"> </app-explore-container>
-  <div>{{ loggedIn$.value }}</div>
 </ion-content>
