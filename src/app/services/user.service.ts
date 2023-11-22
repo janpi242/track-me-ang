@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +8,18 @@ import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
 export class UserService {
   private loggedIn$ = new BehaviorSubject<boolean>(false)
 
-  public getLoggedIn(): Observable<boolean>{
+  constructor(private storage: StorageService) { }
+
+  getLoggedIn(): Observable<boolean> {
     return this.loggedIn$
   }
 
-  public logInUser(username: string, token: string) {
+  async logInUser(username: string, token: string) {
     this.loggedIn$.next(true)
+    await this.storage.setItem('token', token);
+  }
+
+  async logOutUser() {
+    this.storage.removeItem('token')
   }
 }

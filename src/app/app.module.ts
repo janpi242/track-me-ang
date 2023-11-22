@@ -4,22 +4,26 @@ import { RouteReuseStrategy } from '@angular/router'
 import { FormsModule } from '@angular/forms'
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular'
+import { IonicStorageModule } from '@ionic/storage-angular';
+
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { LoginModalComponent } from './login-modal/login-modal.component'
 import { HttpClientModule } from '@angular/common/http'
 import { UserService } from './services/user.service'
+import { StorageService } from './services/storage.service'
 
 @NgModule({
   declarations: [AppComponent, LoginModalComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, UserService],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, UserService, StorageService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

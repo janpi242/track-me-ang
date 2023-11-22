@@ -15,6 +15,7 @@
       ],
       "rules": {
         "@typescript-eslint/semi": "off",
+        "no-underscore-dangle": "off",
         "@angular-eslint/component-class-suffix": [
           "error",
           {
