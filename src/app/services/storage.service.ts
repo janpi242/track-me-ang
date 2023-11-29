@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { BehaviorSubject, Observable, from } from 'rxjs';
 
 // docs for Api of this third party library are here:
 // https://github.com/ionic-team/ionic-storage
@@ -9,14 +10,16 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class StorageService {
   private _storage: Storage | null = null
+  private token$ = new BehaviorSubject<string>('')
 
   constructor(private storage: Storage) {
     this.init()
   }
 
   async init() {
-    const storage = await this.storage.create();
-    this._storage = storage
+    if(!this._storage) {
+      this._storage = await this.storage.create();
+    }
   }
 
   async setItem(key: string, value: string | number): Promise<void> {
@@ -24,11 +27,16 @@ export class StorageService {
   }
 
   async getItem(key: string): Promise<string> {
-    console.log(this._storage)
-    return await this._storage.get(key)
+    if(!this._storage) {
+      await this.init()
+    }
+    const token = await this._storage.get(key)
+    this.token$.next(token);
+    return token;
   }
 
   async removeItem(key: string): Promise<void> {
+    this.token$.next('');
     await this._storage.remove(key)
   }
 }

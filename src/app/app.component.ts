@@ -8,13 +8,6 @@ import { UserService } from './services/user.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(private storage: StorageService, private userService: UserService) { }
-
-  async ngOnInit(): Promise<void> {
-    const token = await this.storage.getItem('token')
-    if (token) {
-      this.userService.logInUser('userAuto', token);
-    }
-  }
 }

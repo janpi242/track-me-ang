@@ -9,7 +9,7 @@
   <ion-list>
     <ion-item>
       <ion-label *ngIf="(loggedIn$ | async)===false">Log in</ion-label>
-      <ion-label *ngIf="loggedIn$ | async">Log out</ion-label>
+      <ion-label *ngIf="(loggedIn$ | async)===true" (click)="logout()">Log out</ion-label>
     </ion-item>
   </ion-list>
 

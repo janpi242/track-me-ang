@@ -16,4 +16,8 @@ export class Tab3Page implements OnInit {
     this.loggedIn$ = this.userService.getLoggedIn();
     this.loggedIn$.subscribe((loggedIn) => { console.log(loggedIn) })
   }
+
+  logout() {
+    this.userService.logOutUser()
+  }
 }
