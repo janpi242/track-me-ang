@@ -18,7 +18,6 @@ export class LoginModalComponent {
   isLoginModal = true
 
   isUserLoggedIn = false
-  username = '123'
 
   constructor(private modalCtrl: ModalController,
     private restService: RestService,
@@ -53,7 +52,7 @@ export class LoginModalComponent {
         .subscribe(responseData => {
           console.log(responseData);
           console.log(this.userService)
-          this.userService.logInUser('usernameXXX', responseData.access_token)
+          this.userService.logInUser(responseData.access_token)
           this.confirm()
         })
     }

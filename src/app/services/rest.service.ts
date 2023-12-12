@@ -14,7 +14,7 @@ export interface ApiResult {
 })
 export class RestService {
   private token: string;
-  constructor(private http: HttpClient, private userService: UserService) { }
+  constructor(private http: HttpClient) { }
 
   getToken(): Observable<ApiResult> {
     return this.http.get<ApiResult>(`${environment.baseUrl}/sanctum/csrf-cookie`, { observe: 'response' });
@@ -41,6 +41,14 @@ export class RestService {
       `${environment.baseUrl}/api/login`,
       loginData
     )
+  }
+
+  async getUserData(token): Promise<Observable<ApiResult>> {
+    const headers = new HttpHeaders({
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      Authorization: `Bearer ${token}`
+    })
+    return this.http.get(`${environment.baseUrl}/api/user`, { headers });
   }
 
   logOut(): Observable<ApiResult> {
