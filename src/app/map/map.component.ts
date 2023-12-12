@@ -17,6 +17,7 @@ export class MapComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     this.initMap()
+    this.setCurrentPosition()
   }
 
   async setCurrentPosition() {
