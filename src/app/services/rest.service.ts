@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core'
 import { environment } from 'src/environments/environment'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs'
-import { UserService } from './user.service';
 
 
 export interface ApiResult {
