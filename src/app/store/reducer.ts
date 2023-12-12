@@ -1,7 +1,6 @@
 import { State, createReducer, on } from '@ngrx/store';
 import { UserActions } from './actions';
 import { User } from './user.model';
-import { stat } from 'fs';
 
 export const initialState: User = {
     isLoggedIn: false,
@@ -10,7 +9,7 @@ export const initialState: User = {
     id: null
 };
 
-export const counterReducer = createReducer(
+export const userReducer = createReducer(
     initialState,
     on(UserActions.loginUser, (state): User => {
         state.isLoggedIn = true
