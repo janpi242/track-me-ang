@@ -13,7 +13,7 @@ import { createActionGroup, props } from '@ngrx/store';
 export const UserActions = createActionGroup({
   source: 'User',
   events: {
-    'Login user': props<{ isLoggedIn: boolean }>(),
-    'Logout user': props<{ isLoggedIn: boolean }>(),
+    'Login user': props<any>(),
+    'Logout user': props<any>()
   },
 })

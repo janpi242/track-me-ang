@@ -1,5 +1,5 @@
 import { State, createReducer, on } from '@ngrx/store';
-import { UserActions } from './actions';
+import { UserActions } from './user.actions';
 import { User } from './user.model';
 
 export const initialState: User = {
@@ -11,12 +11,6 @@ export const initialState: User = {
 
 export const userReducer = createReducer(
     initialState,
-    on(UserActions.loginUser, (state): User => {
-        state.isLoggedIn = true
-        return state
-    }),
-    on(UserActions.logoutUser, (state): User => {
-        state.isLoggedIn = false
-        return state
-    })
+    on(UserActions.loginUser, (state): User => ({ ...state, isLoggedIn: true })),
+    on(UserActions.logoutUser, (state): User => ({ ...state, isLoggedIn: false })),
 )

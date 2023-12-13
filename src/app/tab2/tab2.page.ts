@@ -1,23 +1,18 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { ModalController } from '@ionic/angular'
 import { LoginModalComponent } from '../login-modal/login-modal.component'
-import { UserService } from '../services/user.service'
-import { Observable } from 'rxjs'
+import { Store } from '@ngrx/store'
+import { selectUser } from '../store/user.selectors'
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
 })
-export class Tab2Page implements OnInit{
-  public loggedIn$: Observable<boolean>
+export class Tab2Page {
+  public user$ = this.store.select(selectUser)
 
-  constructor(private modalCtrl: ModalController, private userService: UserService) { }
-
-  ngOnInit(): void {
-    this.loggedIn$ = this.userService.getLoggedIn();
-    this.loggedIn$.subscribe((loggedIn) => { console.log(loggedIn) })
-  }
+  constructor(private modalCtrl: ModalController, private store: Store) { }
 
   async openLoginModal() {
     const modal = await this.modalCtrl.create({

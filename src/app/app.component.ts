@@ -51,6 +51,6 @@ export class AppComponent implements AfterViewInit {
     this.interval = setInterval(async () => {
       const position = await Geolocation.getCurrentPosition()
       console.log(position);
-    }, 1000)
+    }, 10000)
   }
 }

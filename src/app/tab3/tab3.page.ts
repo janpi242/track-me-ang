@@ -1,21 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectUser } from '../store/user.selectors';
 import { UserService } from '../services/user.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss'],
 })
-export class Tab3Page implements OnInit {
-  public loggedIn$: Observable<boolean>
+export class Tab3Page {
+  public user$ = this.store.select(selectUser)
 
-  constructor(public userService: UserService) { }
-
-  ngOnInit(): void {
-    this.loggedIn$ = this.userService.getLoggedIn();
-    this.loggedIn$.subscribe((loggedIn) => { console.log(loggedIn) })
-  }
+  constructor(private userService: UserService, private store: Store) { }
 
   logout() {
     this.userService.logOutUser()

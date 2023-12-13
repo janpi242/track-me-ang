@@ -12,7 +12,7 @@ import { LoginModalComponent } from './login-modal/login-modal.component'
 import { HttpClientModule } from '@angular/common/http'
 import { UserService } from './services/user.service'
 import { StorageService } from './services/storage.service';
-import { userReducer } from './store/reducer'
+import { userReducer } from './store/user.reducer'
 import { StoreModule } from '@ngrx/store'
 
 @NgModule({

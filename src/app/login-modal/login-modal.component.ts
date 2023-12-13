@@ -50,8 +50,7 @@ export class LoginModalComponent {
     } else {
       this.restService.login({ email, password })
         .subscribe(responseData => {
-          console.log(responseData);
-          console.log(this.userService)
+          console.log('logging in login modal');
           this.userService.logInUser(responseData.access_token)
           this.confirm()
         })
