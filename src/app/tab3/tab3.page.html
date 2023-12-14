@@ -8,8 +8,8 @@
  
   <ion-list>
     <ion-item>
-      <ion-label *ngIf="!(user$ | async).isLoggedIn">Log in</ion-label>
-      <ion-label *ngIf="(user$ | async).isLoggedIn" (click)="logout()">Log out</ion-label>
+      <ion-label *ngIf="(isLoggedIn$ | async) === false">Log in</ion-label>
+      <ion-label *ngIf="(isLoggedIn$ | async) === true" (click)="logout()">Log out</ion-label>
     </ion-item>
   </ion-list>
 

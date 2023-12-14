@@ -8,7 +8,7 @@
   <div
     class="fullscreen-container ion-text-center ion-padding ion-justify-content-center ion-align-items-center"
   >
-    <p *ngIf="!(user$ | async).isLoggedIn">
+    <p *ngIf="(isLoggedIn$ | async) === false">
       You have to be
       <strong><a (click)="openLoginModal()">logged in</a></strong> to be able
       manage contacts.

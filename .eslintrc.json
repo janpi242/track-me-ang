@@ -23,6 +23,7 @@
       "rules": {
         "@typescript-eslint/semi": "off",
         "no-underscore-dangle": "off",
+        "jsdoc/newline-after-description": "off",
         "@angular-eslint/component-class-suffix": [
           "error",
           {

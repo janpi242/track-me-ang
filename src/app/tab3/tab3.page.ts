@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectUser } from '../store/user.selectors';
+import { selectIsLoggedIn } from '../store/user.selectors';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { UserService } from '../services/user.service';
   styleUrls: ['tab3.page.scss'],
 })
 export class Tab3Page {
-  public user$ = this.store.select(selectUser)
+  public isLoggedIn$ = this.store.select(selectIsLoggedIn)
 
   constructor(private userService: UserService, private store: Store) { }
 

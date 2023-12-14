@@ -3,6 +3,7 @@ import { StorageService } from './services/storage.service';
 import { AlertController } from '@ionic/angular'
 import { Capacitor } from '@capacitor/core'
 import { Geolocation } from '@capacitor/geolocation'
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import { Geolocation } from '@capacitor/geolocation'
 })
 export class AppComponent implements AfterViewInit {
   private interval;
-  constructor(private storage: StorageService, private alertController: AlertController) { }
+  constructor(private storage: StorageService, private alertController: AlertController, private store: Store) { }
 
   ngAfterViewInit(): void {
     this.checkPermissionsForGps()

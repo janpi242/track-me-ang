@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core'
 import { ModalController } from '@ionic/angular'
 import { LoginModalComponent } from '../login-modal/login-modal.component'
 import { Store } from '@ngrx/store'
-import { selectUser } from '../store/user.selectors'
+import { selectIsLoggedIn } from '../store/user.selectors'
 
 @Component({
   selector: 'app-tab2',
@@ -10,7 +10,7 @@ import { selectUser } from '../store/user.selectors'
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page {
-  public user$ = this.store.select(selectUser)
+  public isLoggedIn$ = this.store.select(selectIsLoggedIn)
 
   constructor(private modalCtrl: ModalController, private store: Store) { }
 

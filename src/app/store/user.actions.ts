@@ -9,11 +9,12 @@
 // export const setUserId = createAction('[User] UserId')
 
 import { createActionGroup, props } from '@ngrx/store';
+import { User } from './user.model';
 
 export const UserActions = createActionGroup({
   source: 'User',
   events: {
-    'Login user': props<any>(),
+    'Login user': props<User>(),
     'Logout user': props<any>()
   },
 })

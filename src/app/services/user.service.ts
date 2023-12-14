@@ -29,13 +29,14 @@ export class UserService {
   async logInUser(token: string) {
     await this.storage.setItem('token', token);
     const userData = await this.restService.getUserData(token)
-    console.log('UserData:')
-    console.log(userData.subscribe(val => { console.log(val) }))
-    this.store.dispatch(UserActions.loginUser())
+    userData.subscribe(response => {
+      console.log(response)
+      const _userData = { token, id: response.id, name: response.name, email: response.email }
+      this.store.dispatch(UserActions.loginUser(_userData))
+    })
   }
 
   async logOutUser() {
-    console.log('logging out')
     this.storage.removeItem('token')
     this.restService.logOut();
     this.store.dispatch(UserActions.logoutUser())
