@@ -28,11 +28,11 @@ export class UserService {
 
   async logInUser(token: string) {
     await this.storage.setItem('token', token);
-    const userData = await this.restService.getUserData(token)
-    userData.subscribe(response => {
+    const userData$ = await this.restService.getUserData(token)
+    userData$.subscribe(response => {
       console.log(response)
-      const _userData = { token, id: response.id, name: response.name, email: response.email }
-      this.store.dispatch(UserActions.loginUser(_userData))
+      const userData = { token, id: response.id, name: response.name, email: response.email }
+      this.store.dispatch(UserActions.loginUser(userData))
     })
   }
 

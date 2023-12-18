@@ -1,18 +1,27 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { StorageService } from './services/storage.service';
 import { AlertController } from '@ionic/angular'
 import { Capacitor } from '@capacitor/core'
 import { Geolocation } from '@capacitor/geolocation'
 import { Store } from '@ngrx/store';
+import { selectIsLoggedIn } from './store/user.selectors';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent implements AfterViewInit {
-  private interval;
+export class AppComponent implements OnInit, AfterViewInit {
+  private isLoggedIn$ = this.store.select(selectIsLoggedIn)
+  private isLoggedIn
+  private interval
   constructor(private storage: StorageService, private alertController: AlertController, private store: Store) { }
+
+  ngOnInit(): void {
+    this.isLoggedIn$.subscribe(value => {
+      this.isLoggedIn = value
+    })
+  }
 
   ngAfterViewInit(): void {
     this.checkPermissionsForGps()
@@ -50,8 +59,10 @@ export class AppComponent implements AfterViewInit {
 
   private watchPosition(): void {
     this.interval = setInterval(async () => {
-      const position = await Geolocation.getCurrentPosition()
-      console.log(position);
-    }, 10000)
+      if (this.isLoggedIn) {
+        const position = await Geolocation.getCurrentPosition()
+        console.log(position);
+      }
+    }, 5000)
   }
 }
