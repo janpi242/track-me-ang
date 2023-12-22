@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { StorageService } from './services/storage.service';
 import { AlertController } from '@ionic/angular'
 import { Capacitor } from '@capacitor/core'
 import { Geolocation } from '@capacitor/geolocation'
 import { Store } from '@ngrx/store';
 import { selectIsLoggedIn } from './store/user.selectors';
+import { LocationService } from './services/location.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   private isLoggedIn$ = this.store.select(selectIsLoggedIn)
   private isLoggedIn
   private interval
-  constructor(private storage: StorageService, private alertController: AlertController, private store: Store) { }
+  constructor(
+    private alertController: AlertController,
+    private store: Store,
+    private locationService: LocationService
+  ) { }
 
   ngOnInit(): void {
     this.isLoggedIn$.subscribe(value => {
@@ -60,8 +64,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private watchPosition(): void {
     this.interval = setInterval(async () => {
       if (this.isLoggedIn) {
-        const position = await Geolocation.getCurrentPosition()
-        console.log(position);
+        this.locationService.savePosition()
       }
     }, 5000)
   }
