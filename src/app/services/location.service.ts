@@ -20,9 +20,9 @@ export class LocationService {
     const userLocationData = {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
-      timestamp: position.timestamp,
+      timestamp: Date.now(),
       userId: this.user.id
     }
-    this.restService.saveLocation(userLocationData)
+    this.restService.saveLocation(userLocationData).subscribe(response => { console.log(response) })
   }
 }

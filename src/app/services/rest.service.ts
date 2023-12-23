@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core'
 import { environment } from 'src/environments/environment'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs'
-
-
-export interface ApiResult {
-  [x: string]: any;
-}
+import { ApiResult } from '../types/types';
+import { selectUser } from '../store/user.selectors';
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RestService {
+  private user$ = this.store.select(selectUser)
   private token: string;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private store: Store) {
+    this.user$.subscribe((user) => { this.token = user.token })
+  }
 
   getToken(): Observable<ApiResult> {
     return this.http.get<ApiResult>(`${environment.baseUrl}/sanctum/csrf-cookie`, { observe: 'response' })
@@ -55,7 +56,10 @@ export class RestService {
   }
 
   saveLocation(userLocationData): Observable<ApiResult> {
-    console.log(userLocationData);
-    return this.http.post<ApiResult>(`${environment.baseUrl}/api/location`, userLocationData)
+    const headers = new HttpHeaders({
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      Authorization: `Bearer ${this.token}`
+    })
+    return this.http.post<ApiResult>(`${environment.baseUrl}/api/location`, userLocationData, { headers })
   }
 }
