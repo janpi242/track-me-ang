@@ -1,0 +1,38 @@
+$spacer: 1rem;
+
+$sizes: (
+  "0": 0,
+  "1": 0.25 * $spacer,
+  "2": 0.5 * $spacer,
+  "3": $spacer,
+  "4": 1.5 * $spacer,
+  "5": 3 * $spacer,
+  "auto": "auto",
+);
+
+$spaces: (
+  "m": "margin",
+  "p": "padding",
+);
+
+$directions: (
+  "t": "top",
+  "r": "right",
+  "b": "bottom",
+  "l": "left",
+  "": "empty",
+);
+
+@each $spaceName, $spaceValue in $spaces {
+  @each $directionName, $directionValue in $directions {
+    @each $sizeName, $sizeValue in $sizes {
+      .#{$spaceName}#{$directionName}-#{$sizeName} {
+        @if $directionValue != "empty" {
+          #{$spaceValue}-#{$directionValue}: $sizeValue;
+        } @else {
+          #{$spaceValue}: $sizeValue;
+        }
+      }
+    }
+  }
+}

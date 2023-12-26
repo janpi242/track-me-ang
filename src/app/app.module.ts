@@ -14,9 +14,10 @@ import { UserService } from './services/user.service'
 import { StorageService } from './services/storage.service';
 import { userReducer } from './store/user.reducer'
 import { StoreModule } from '@ngrx/store'
+import { AddFriendModalComponent } from './add-friend-modal/add-friend-modal.component'
 
 @NgModule({
-  declarations: [AppComponent, LoginModalComponent],
+  declarations: [AppComponent, LoginModalComponent, AddFriendModalComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

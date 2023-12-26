@@ -11,9 +11,7 @@ import { UserActions } from '../store/user.actions';
 export class UserService {
   existingToken$: Observable<string>;
 
-  constructor(private storage: StorageService, private restService: RestService, private store: Store) {
-    this.checkIfTokenPresent();
-  }
+  constructor(private storage: StorageService, private restService: RestService, private store: Store) {}
 
   async checkIfTokenPresent() {
     this.existingToken$ = from(this.storage.getItem('token'))

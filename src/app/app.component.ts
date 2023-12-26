@@ -5,6 +5,7 @@ import { Geolocation } from '@capacitor/geolocation'
 import { Store } from '@ngrx/store';
 import { selectIsLoggedIn } from './store/user.selectors';
 import { LocationService } from './services/location.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -13,18 +14,21 @@ import { LocationService } from './services/location.service';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   private isLoggedIn$ = this.store.select(selectIsLoggedIn)
-  private isLoggedIn
+  private isLoggedIn: boolean
   private interval
+
   constructor(
     private alertController: AlertController,
     private store: Store,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private userService: UserService,
   ) { }
 
   ngOnInit(): void {
     this.isLoggedIn$.subscribe(value => {
       this.isLoggedIn = value
     })
+    this.userService.checkIfTokenPresent();
   }
 
   ngAfterViewInit(): void {

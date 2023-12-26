@@ -62,4 +62,12 @@ export class RestService {
     })
     return this.http.post<ApiResult>(`${environment.baseUrl}/api/location`, userLocationData, { headers })
   }
+
+  addFriend(friendData): Observable<ApiResult> {
+    const headers = new HttpHeaders({
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      Authorization: `Bearer ${this.token}`
+    })
+    return this.http.post<ApiResult>(`${environment.baseUrl}/api/friend`, friendData, { headers })
+  }
 }

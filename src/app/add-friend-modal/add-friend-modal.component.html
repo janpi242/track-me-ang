@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Add friend</ion-title>
+    <ion-buttons slot="end">
+      <ion-button type="submit" (click)="onSubmit(f)">Confirm</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-text-center">
+  <div class="vertical-center">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <p class="p-4">Enter email of the person you wish to track</p>
+      <ion-item>
+        <ion-label position="floating">Your friends e-mail</ion-label>
+        <ion-input
+          ngModel
+          name="email"
+          type="email"
+          required
+          #nameCtrl="ngModel"
+        ></ion-input>
+      </ion-item>
+    </form>
+  </div>
+</ion-content>

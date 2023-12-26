@@ -13,9 +13,18 @@
       <strong><a (click)="openLoginModal()">logged in</a></strong> to be able
       manage contacts.
     </p>
+    <p *ngIf="(isLoggedIn$ | async) === true">
+      You don't have any people connections at the moment. Use '+' button on the bottom of the page to add some.
+    </p>
   </div>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab
+    *ngIf="(isLoggedIn$ | async) === true"
+    (click)="showAddFriendModal()"
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+  >
     <ion-fab-button>
       <ion-icon name="person-add-outline"></ion-icon>
     </ion-fab-button>

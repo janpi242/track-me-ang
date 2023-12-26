@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { ModalController } from '@ionic/angular'
 import { LoginModalComponent } from '../login-modal/login-modal.component'
+import { AddFriendModalComponent } from '../add-friend-modal/add-friend-modal.component'
 import { Store } from '@ngrx/store'
 import { selectIsLoggedIn } from '../store/user.selectors'
 
@@ -17,6 +18,19 @@ export class Tab2Page {
   async openLoginModal() {
     const modal = await this.modalCtrl.create({
       component: LoginModalComponent,
+    })
+    modal.present()
+
+    const { data, role } = await modal.onWillDismiss()
+
+    if (role === 'confirm') {
+      console.log(data)
+    }
+  }
+
+  async showAddFriendModal() {
+    const modal = await this.modalCtrl.create({
+      component: AddFriendModalComponent,
     })
     modal.present()
 

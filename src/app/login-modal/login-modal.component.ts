@@ -39,7 +39,6 @@ export class LoginModalComponent {
     const email = form.value.email
     const password = form.value.password
     if (!this.isLoginModal) {
-      console.log('submiting');
       const name = form.value.name
       const repeatedPassword = form.value.repeatedPassword
       this.restService.getToken().subscribe((resp) => {
@@ -50,7 +49,6 @@ export class LoginModalComponent {
     } else {
       this.restService.login({ email, password })
         .subscribe(responseData => {
-          console.log('logging in login modal');
           this.userService.logInUser(responseData.access_token)
           this.confirm()
         })
