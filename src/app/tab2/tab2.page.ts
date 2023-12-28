@@ -15,7 +15,7 @@ export class Tab2Page {
 
   constructor(private modalCtrl: ModalController, private store: Store) { }
 
-  async openLoginModal() {
+  async openLoginModal(): Promise<void> {
     const modal = await this.modalCtrl.create({
       component: LoginModalComponent,
     })
@@ -28,7 +28,7 @@ export class Tab2Page {
     }
   }
 
-  async showAddFriendModal() {
+  async showAddFriendModal(): Promise<void> {
     const modal = await this.modalCtrl.create({
       component: AddFriendModalComponent,
     })

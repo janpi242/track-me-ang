@@ -13,7 +13,7 @@ export class UserService {
 
   constructor(private storage: StorageService, private restService: RestService, private store: Store) {}
 
-  async checkIfTokenPresent() {
+  async checkIfTokenPresent(): Promise<void> {
     this.existingToken$ = from(this.storage.getItem('token'))
     this.existingToken$.subscribe((userToken) => {
       if (userToken) {
@@ -24,7 +24,7 @@ export class UserService {
     })
   }
 
-  async logInUser(token: string) {
+  async logInUser(token: string): Promise<void> {
     await this.storage.setItem('token', token);
     const userData$ = await this.restService.getUserData(token)
     userData$.subscribe(response => {
@@ -34,7 +34,7 @@ export class UserService {
     })
   }
 
-  async logOutUser() {
+  async logOutUser(): Promise<void> {
     this.storage.removeItem('token')
     this.restService.logOut();
     this.store.dispatch(UserActions.logoutUser())

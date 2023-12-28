@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.checkPermissionsForGps()
   }
 
-  async checkPermissionsForGps() {
+  async checkPermissionsForGps(): Promise<void> {
     const permissions = await Geolocation.checkPermissions()
     if (
       permissions.location === 'denied' &&
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  async presentAlert() {
+  async presentAlert(): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Alert',
       subHeader: 'Location services not enabled.',

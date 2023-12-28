@@ -13,7 +13,7 @@ export class Tab3Page {
 
   constructor(private userService: UserService, private store: Store) { }
 
-  logout() {
+  logout(): void {
     this.userService.logOutUser()
   }
 }

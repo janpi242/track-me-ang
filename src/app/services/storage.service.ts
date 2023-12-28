@@ -16,7 +16,7 @@ export class StorageService {
     this.init()
   }
 
-  async init() {
+  async init(): Promise<void> {
     if(!this._storage) {
       this._storage = await this.storage.create();
     }
