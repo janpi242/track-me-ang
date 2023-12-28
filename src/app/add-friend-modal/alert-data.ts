@@ -11,7 +11,7 @@ export const alertData = {
         header: 'Not found :(',
         subHeader: 'Email address not found',
         message:
-            '<p>We couldn\'t find you friends address in our database. Most probably he doesn\'t have an account in our app.</p>',
+            '<p>We couldn\'t find your friends address in our database. Most probably he doesn\'t have an account in our app.</p>',
         buttons: ['OK'],
     },
     sameEmailError: {

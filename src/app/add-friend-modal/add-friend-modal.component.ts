@@ -50,9 +50,18 @@ export class AddFriendModalComponent implements OnInit, OnDestroy {
       myId: this.user.id,
       friendsEmail: form.value.email
     }
-    this.restService.addFriend(friendData).subscribe(responseData => {
-      console.log(responseData)
-    })
+    this.restService.addFriend(friendData).subscribe((responseData) => {
+      this.showDialog(alertData.success)
+      this.confirm()
+    },
+      (error) => {
+        if (error.status === 400) {
+          this.showDialog(alertData.notFound)
+        } else {
+          this.showDialog(alertData.otherError)
+        }
+      }
+    )
   }
 
   async showDialog(alertContents: AlertOptions) {

@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 export class RestService {
   private user$ = this.store.select(selectUser)
   private token: string;
+
   constructor(private http: HttpClient, private store: Store) {
     this.user$.subscribe((user) => { this.token = user.token })
   }
