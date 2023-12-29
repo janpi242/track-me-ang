@@ -5,6 +5,7 @@ import { Observable } from 'rxjs'
 import { ApiResult } from '../types/types';
 import { selectUser } from '../store/user.selectors';
 import { Store } from '@ngrx/store';
+import { FriendsList } from '../store/friend.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +13,13 @@ import { Store } from '@ngrx/store';
 export class RestService {
   private user$ = this.store.select(selectUser)
   private token: string;
+  private myId: number;
 
   constructor(private http: HttpClient, private store: Store) {
-    this.user$.subscribe((user) => { this.token = user.token })
+    this.user$.subscribe((user) => {
+      this.token = user.token
+      this.myId = user.id
+    })
   }
 
   getToken(): Observable<ApiResult> {
@@ -70,5 +75,13 @@ export class RestService {
       Authorization: `Bearer ${this.token}`
     })
     return this.http.post<ApiResult>(`${environment.baseUrl}/api/friend`, friendData, { headers })
+  }
+
+  async getFriends(): Promise<Observable<FriendsList>> {
+    const headers = new HttpHeaders({
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      Authorization: `Bearer ${this.token}`
+    })
+    return this.http.get<FriendsList>(`${environment.baseUrl}/api/friend/${this.myId}`, { headers })
   }
 }
