@@ -3,7 +3,7 @@ import { ModalController } from '@ionic/angular'
 import { LoginModalComponent } from '../login-modal/login-modal.component'
 import { AddFriendModalComponent } from '../add-friend-modal/add-friend-modal.component'
 import { Store } from '@ngrx/store'
-import { selectIsLoggedIn } from '../store/user.selectors'
+import { selectFriends, selectIsLoggedIn } from '../store/user.selectors'
 
 @Component({
   selector: 'app-tab2',
@@ -12,6 +12,7 @@ import { selectIsLoggedIn } from '../store/user.selectors'
 })
 export class Tab2Page {
   public isLoggedIn$ = this.store.select(selectIsLoggedIn)
+  public friends$ = this.store.select(selectFriends)
 
   constructor(private modalCtrl: ModalController, private store: Store) { }
 

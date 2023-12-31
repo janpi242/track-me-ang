@@ -82,6 +82,6 @@ export class RestService {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       Authorization: `Bearer ${this.token}`
     })
-    return this.http.get<FriendsList>(`${environment.baseUrl}/api/friend/${this.myId}`, { headers })
+    return this.http.get<FriendsList>(`${environment.baseUrl}/api/friends/${this.myId}`, { headers })
   }
 }

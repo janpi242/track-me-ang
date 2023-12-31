@@ -7,16 +7,32 @@
 <ion-content [fullscreen]="true">
   <div
     class="fullscreen-container ion-text-center ion-padding ion-justify-content-center ion-align-items-center"
+    *ngIf="(isLoggedIn$ | async) === false"
   >
-    <p *ngIf="(isLoggedIn$ | async) === false">
+    <p>
       You have to be
       <strong><a (click)="openLoginModal()">logged in</a></strong> to be able
       manage contacts.
     </p>
-    <p *ngIf="(isLoggedIn$ | async) === true">
-      You don't have any people connections at the moment. Use '+' button on the bottom of the page to add some.
+  </div>
+
+  <div
+    class="fullscreen-container ion-text-center ion-padding ion-justify-content-center ion-align-items-center"
+    *ngIf="(friends$ | async).length === 0 && (isLoggedIn$ | async) === true"
+  >
+    <p>
+      You don't have any people connections at the moment. Use '+' button on the
+      bottom of the page to add some.
     </p>
   </div>
+
+  <ion-list
+    *ngIf="(friends$ | async).length !== 0 && (isLoggedIn$ | async) === true"
+  >
+    <ion-item *ngFor="let friend of friends$ | async">
+      <ion-label> {{ friend.name }} ({{ friend.email}})</ion-label>
+    </ion-item>
+  </ion-list>
 
   <ion-fab
     *ngIf="(isLoggedIn$ | async) === true"

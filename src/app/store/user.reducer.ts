@@ -3,7 +3,7 @@ import { UserActions } from './user.actions';
 import { User } from './user.model';
 import { FriendsList } from './friend.model';
 
-type UserState = User & FriendsList
+export type UserState = User & FriendsList
 
 export const initialState: UserState = {
     token: null,

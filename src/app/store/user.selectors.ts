@@ -1,8 +1,8 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { User } from './user.model';
+import { UserState } from './user.reducer'
 
-export const selectUser = createFeatureSelector<User>('user');
-
+export const selectUser = createFeatureSelector<UserState>('user');
+export const selectFriends = createSelector(selectUser, (user) => user.friends)
 export const selectIsLoggedIn = createSelector(selectUser, (user) => !!(user.id && user.name && user.token))
 
 // export const selectCollectionState = createFeatureSelector<
