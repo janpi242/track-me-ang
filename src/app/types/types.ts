@@ -1,3 +1,3 @@
 export interface ApiResult {
-    [x: string]: any;
-  }
+  [x: string]: any;
+}

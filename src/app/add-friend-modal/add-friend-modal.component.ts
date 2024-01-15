@@ -7,6 +7,7 @@ import { selectUser } from '../store/user.selectors'
 import { User } from '../store/user.model'
 import { Subscription } from 'rxjs'
 import { alertData } from './alert-data'
+import { UserService } from '../services/user.service'
 
 @Component({
   selector: 'app-add-friend-modal',
@@ -21,6 +22,7 @@ export class AddFriendModalComponent implements OnInit, OnDestroy {
   constructor(
     private modalCtrl: ModalController,
     private restService: RestService,
+    private userService: UserService,
     private store: Store,
     private alertController: AlertController
   ) { }
@@ -53,6 +55,7 @@ export class AddFriendModalComponent implements OnInit, OnDestroy {
     this.restService.addFriend(friendData).subscribe((responseData) => {
       this.showDialog(alertData.success)
       this.confirm()
+      this.userService.getFriends()
     },
       (error) => {
         if (error.status === 400) {
