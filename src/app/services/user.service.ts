@@ -4,6 +4,7 @@ import { StorageService } from './storage.service';
 import { RestService } from './rest.service';
 import { Store } from '@ngrx/store';
 import { UserActions } from '../store/user.actions';
+import { LocationService } from './location.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,11 @@ import { UserActions } from '../store/user.actions';
 export class UserService {
   existingToken$: Observable<string>;
 
-  constructor(private storage: StorageService, private restService: RestService, private store: Store) { }
+  constructor(
+    private storage: StorageService,
+    private restService: RestService,
+    private locationService: LocationService,
+    private store: Store) { }
 
   async checkIfTokenPresent(): Promise<void> {
     this.existingToken$ = from(this.storage.getItem('token'))
@@ -30,16 +35,18 @@ export class UserService {
     userData$.subscribe(response => {
       console.log(response)
       const userData = { token, id: response.id, name: response.name, email: response.email }
+      console.log(userData)
       this.store.dispatch(UserActions.loginUser(userData))
       this.getFriends()
     })
   }
 
-  async getFriends() {
-    const friendsData$ = await this.restService.getFriends()
+  getFriends() {
+    const friendsData$ = this.restService.getFriends()
     friendsData$.subscribe(friendsList => {
       console.log(friendsList)
       this.store.dispatch(UserActions.storeFriends(friendsList))
+      this.locationService.getPositions(friendsList)
     })
   }
 

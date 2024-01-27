@@ -6,6 +6,7 @@ import { ApiResult } from '../types/types';
 import { selectUser } from '../store/user.selectors';
 import { Store } from '@ngrx/store';
 import { FriendsList } from '../store/friend.model';
+import { Position } from '../store/position.model';
 
 @Injectable({
   providedIn: 'root',
@@ -77,11 +78,19 @@ export class RestService {
     return this.http.post<ApiResult>(`${environment.baseUrl}/api/friend`, friendData, { headers })
   }
 
-  async getFriends(): Promise<Observable<FriendsList>> {
+  getFriends(): Observable<FriendsList> {
     const headers = new HttpHeaders({
       // eslint-disable-next-line @typescript-eslint/naming-convention
       Authorization: `Bearer ${this.token}`
     })
     return this.http.get<FriendsList>(`${environment.baseUrl}/api/friends/${this.myId}`, { headers })
+  }
+
+  getPosition(friendId) {
+    const headers = new HttpHeaders({
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      Authorization: `Bearer ${this.token}`
+    })
+    return this.http.get<Position>(`${environment.baseUrl}/api/location/${friendId}`, { headers })
   }
 }
