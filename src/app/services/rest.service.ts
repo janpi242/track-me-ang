@@ -62,12 +62,12 @@ export class RestService {
     return this.http.post<ApiResult>(`${environment.baseUrl}/api/logout`, {})
   }
 
-  saveLocation(userLocationData): Observable<ApiResult> {
+  savePosition(userPositionData): Observable<ApiResult> {
     const headers = new HttpHeaders({
       // eslint-disable-next-line @typescript-eslint/naming-convention
       Authorization: `Bearer ${this.token}`
     })
-    return this.http.post<ApiResult>(`${environment.baseUrl}/api/location`, userLocationData, { headers })
+    return this.http.post<ApiResult>(`${environment.baseUrl}/api/position`, userPositionData, { headers })
   }
 
   addFriend(friendData): Observable<ApiResult> {
@@ -91,6 +91,6 @@ export class RestService {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       Authorization: `Bearer ${this.token}`
     })
-    return this.http.get<Position>(`${environment.baseUrl}/api/location/${friendId}`, { headers })
+    return this.http.get<Position>(`${environment.baseUrl}/api/position/${friendId}`, { headers })
   }
 }

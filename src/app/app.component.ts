@@ -4,7 +4,7 @@ import { Capacitor } from '@capacitor/core'
 import { Geolocation } from '@capacitor/geolocation'
 import { Store } from '@ngrx/store';
 import { selectIsLoggedIn } from './store/user.selectors';
-import { LocationService } from './services/location.service';
+import { PositionService } from './services/position.service';
 import { UserService } from './services/user.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(
     private alertController: AlertController,
     private store: Store,
-    private locationService: LocationService,
+    private positionService: PositionService,
     private userService: UserService,
   ) { }
 
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private watchPosition(): void {
     this.interval = setInterval(async () => {
       if (this.isLoggedIn) {
-        this.locationService.savePosition()
+        this.positionService.savePosition()
       }
     }, 5000)
   }

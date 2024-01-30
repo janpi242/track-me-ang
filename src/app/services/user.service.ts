@@ -4,7 +4,7 @@ import { StorageService } from './storage.service';
 import { RestService } from './rest.service';
 import { Store } from '@ngrx/store';
 import { UserActions } from '../store/user.actions';
-import { LocationService } from './location.service';
+import { PositionService } from './position.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class UserService {
   constructor(
     private storage: StorageService,
     private restService: RestService,
-    private locationService: LocationService,
+    private positionService: PositionService,
     private store: Store) { }
 
   async checkIfTokenPresent(): Promise<void> {
@@ -46,7 +46,7 @@ export class UserService {
     friendsData$.subscribe(friendsList => {
       console.log(friendsList)
       this.store.dispatch(UserActions.storeFriends(friendsList))
-      this.locationService.getPositions(friendsList)
+      this.positionService.getPositions(friendsList)
     })
   }
 

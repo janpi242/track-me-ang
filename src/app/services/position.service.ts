@@ -9,7 +9,7 @@ import { UserActions } from '../store/user.actions';
 @Injectable({
   providedIn: 'root'
 })
-export class LocationService {
+export class PositionService {
   private user$ = this.store.select(selectUser)
   private user
 
@@ -19,13 +19,13 @@ export class LocationService {
 
   async savePosition() {
     const position = await Geolocation.getCurrentPosition()
-    const userLocationData = {
+    const userPositionData = {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
       timestamp: Date.now(),
       userId: this.user.id
     }
-    this.restService.saveLocation(userLocationData).subscribe(response => { console.log(response) })
+    this.restService.savePosition(userPositionData).subscribe(response => { console.log(response) })
   }
 
   getPositions(friendsList: FriendsList) {
