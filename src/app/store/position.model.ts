@@ -4,5 +4,5 @@ export interface Position {
     latitude: number;
     timestamp: string;
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    user_id?: number;
+    user_id: number;
 }

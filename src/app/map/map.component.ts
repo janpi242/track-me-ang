@@ -1,6 +1,9 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core'
 import { Geolocation } from '@capacitor/geolocation'
+import { Store } from '@ngrx/store';
+import { selectPositions } from '../store/position.selectors'
 import * as L from 'leaflet'
+import { PositionState } from '../store/position.reducer';
 
 @Component({
   selector: 'app-map',
@@ -10,6 +13,14 @@ import * as L from 'leaflet'
 export class MapComponent implements AfterViewInit, OnInit {
   private map
   private zoom = 13
+  private userMarker
+  private positions$ = this.store.select(selectPositions)
+
+  constructor(private store: Store) {
+    this.positions$.subscribe((positionsFeature) => {
+      this.updateMarkers(positionsFeature.positions)
+    })
+  }
 
   ngOnInit(): void {
     L.Icon.Default.imagePath = 'assets/leaflet/'
@@ -20,16 +31,28 @@ export class MapComponent implements AfterViewInit, OnInit {
     this.setCurrentPosition()
   }
 
+  updateMarkers(positions) {
+    positions?.forEach((position) => {
+      if (position.latitude && position.longitude) {
+        L.marker([
+          position.latitude,
+          position.longitude,
+        ]).addTo(this.map)
+      }
+    });
+  }
+
   async setCurrentPosition() {
     const position = await Geolocation.getCurrentPosition()
     this.map.setView(
       new L.LatLng(position.coords.latitude, position.coords.longitude),
       this.zoom,
     )
-    const marker = L.marker([
+    this.userMarker = L.marker([
       position.coords.latitude,
       position.coords.longitude,
-    ]).addTo(this.map)
+    ],
+      { title: 'Me' }).addTo(this.map)
   }
 
   private initMap(): void {

@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { UserService } from './services/user.service'
 import { StorageService } from './services/storage.service';
 import { userReducer } from './store/user.reducer'
+import { positionsReducer } from './store/position.reducer'
 import { StoreModule } from '@ngrx/store'
 import { AddFriendModalComponent } from './add-friend-modal/add-friend-modal.component'
 
@@ -25,7 +26,7 @@ import { AddFriendModalComponent } from './add-friend-modal/add-friend-modal.com
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ user: userReducer }),
+    StoreModule.forRoot({ user: userReducer, positions: positionsReducer }),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, UserService, StorageService],
   bootstrap: [AppComponent],

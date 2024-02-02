@@ -19,6 +19,5 @@ export const UserActions = createActionGroup({
     'Login user': props<User>(),
     'Logout user': props<any>(),
     'Store friends': props<FriendsList>(),
-    'Save position': props<Position>(),
   },
 })

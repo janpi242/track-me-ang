@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { selectUser } from '../store/user.selectors';
 import { RestService } from './rest.service';
 import { FriendsList } from '../store/friend.model';
-import { UserActions } from '../store/user.actions';
+import { PositionActions } from '../store/position.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,7 @@ export class PositionService {
 
   async savePosition() {
     const position = await Geolocation.getCurrentPosition()
+    console.log('czy to tu')
     const userPositionData = {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
@@ -39,7 +40,7 @@ export class PositionService {
     friendPosition$.subscribe(friendPosition => {
       console.log(JSON.parse(JSON.stringify(friendPosition)))
       console.log('before dispatch')
-      this.store.dispatch(UserActions.savePosition(friendPosition))
+      this.store.dispatch(PositionActions.savePosition(friendPosition))
     })
   }
 }

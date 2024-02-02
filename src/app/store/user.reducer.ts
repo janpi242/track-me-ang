@@ -18,19 +18,4 @@ export const userReducer = createReducer(
     on(UserActions.loginUser, (state, userData): UserState => ({ ...userData, friends: [] })),
     on(UserActions.logoutUser, (state): UserState => ({ ...initialState })),
     on(UserActions.storeFriends, (state, friendsList): UserState => ({ ...state, friends: friendsList.friends })),
-    on(
-        UserActions.savePosition,
-        (state, position): UserState => {
-            const friend = state.friends.find(_friend => position.user_id === _friend.id)
-            const index = state.friends.indexOf(friend)
-            const friends = state.friends.map(_friend => ({ ..._friend }))
-            if (index !== -1) {
-                friends[index].position = position
-            }
-            return {
-                ...state,
-                friends
-            }
-        }
-    )
 )

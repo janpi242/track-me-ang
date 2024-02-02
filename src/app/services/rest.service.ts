@@ -93,4 +93,12 @@ export class RestService {
     })
     return this.http.get<Position>(`${environment.baseUrl}/api/position/${friendId}`, { headers })
   }
+
+  getPositions(friendIds) {
+    const headers = new HttpHeaders({
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      Authorization: `Bearer ${this.token}`
+    })
+    return this.http.get<Position[]>(`${environment.baseUrl}/api/positions?ids=${friendIds}`, { headers })
+  }
 }

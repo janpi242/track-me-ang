@@ -70,6 +70,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (this.isLoggedIn) {
         this.positionService.savePosition()
       }
-    }, 5000)
+    }, 60 * 1000)
   }
 }
