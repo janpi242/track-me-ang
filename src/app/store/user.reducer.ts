@@ -1,4 +1,4 @@
-import { State, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { UserActions } from './user.actions';
 import { User } from './user.model';
 import { FriendsList } from './friend.model';

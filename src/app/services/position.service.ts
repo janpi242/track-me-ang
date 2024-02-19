@@ -19,7 +19,6 @@ export class PositionService {
 
   async savePosition() {
     const position = await Geolocation.getCurrentPosition()
-    console.log('czy to tu')
     const userPositionData = {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
@@ -38,8 +37,6 @@ export class PositionService {
   getPosition(friendId: number) {
     const friendPosition$ = this.restService.getPosition(friendId);
     friendPosition$.subscribe(friendPosition => {
-      console.log(JSON.parse(JSON.stringify(friendPosition)))
-      console.log('before dispatch')
       this.store.dispatch(PositionActions.savePosition(friendPosition))
     })
   }

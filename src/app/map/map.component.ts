@@ -3,7 +3,6 @@ import { Geolocation } from '@capacitor/geolocation'
 import { Store } from '@ngrx/store';
 import { selectPositions } from '../store/position.selectors'
 import * as L from 'leaflet'
-import { PositionState } from '../store/position.reducer';
 
 @Component({
   selector: 'app-map',
@@ -14,6 +13,7 @@ export class MapComponent implements AfterViewInit, OnInit {
   private map
   private zoom = 13
   private userMarker
+  private friendsMarkers = []
   private positions$ = this.store.select(selectPositions)
 
   constructor(private store: Store) {
@@ -31,18 +31,28 @@ export class MapComponent implements AfterViewInit, OnInit {
     this.setCurrentPosition()
   }
 
-  updateMarkers(positions) {
+  updateMarkers(positions): void {
+    this.clearFriendsMarkers()
     positions?.forEach((position) => {
       if (position.latitude && position.longitude) {
-        L.marker([
+        const marker = L.marker([
           position.latitude,
           position.longitude,
-        ]).addTo(this.map)
+        ])
+        marker.addTo(this.map)
+        this.friendsMarkers.push(marker)
       }
     });
   }
 
-  async setCurrentPosition() {
+  clearFriendsMarkers(): void {
+    this.friendsMarkers.forEach(marker => {
+      marker.remove()
+    });
+    this.friendsMarkers = []
+  }
+
+  async setCurrentPosition(): Promise<void> {
     const position = await Geolocation.getCurrentPosition()
     this.map.setView(
       new L.LatLng(position.coords.latitude, position.coords.longitude),

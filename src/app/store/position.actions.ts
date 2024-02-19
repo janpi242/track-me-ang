@@ -7,5 +7,6 @@ export const PositionActions = createActionGroup({
   source: 'Position',
   events: {
     'Save position': props<Position>(),
+    'Clear Friends Positions': props<any>()
   },
 })

@@ -1,5 +1,3 @@
-import { Position } from './position.model';
-
 export interface Friend {
     id: number;
     name: string;

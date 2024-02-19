@@ -16,6 +16,8 @@ import { userReducer } from './store/user.reducer'
 import { positionsReducer } from './store/position.reducer'
 import { StoreModule } from '@ngrx/store'
 import { AddFriendModalComponent } from './add-friend-modal/add-friend-modal.component'
+import { SettingsService } from './services/settings.service'
+import { settingsReducer } from './store/settings.reducer'
 
 @NgModule({
   declarations: [AppComponent, LoginModalComponent, AddFriendModalComponent],
@@ -26,9 +28,9 @@ import { AddFriendModalComponent } from './add-friend-modal/add-friend-modal.com
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ user: userReducer, positions: positionsReducer }),
+    StoreModule.forRoot({ user: userReducer, positions: positionsReducer, settings: settingsReducer }),
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, UserService, StorageService],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, UserService, StorageService, SettingsService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

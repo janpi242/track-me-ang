@@ -11,6 +11,6 @@ export const initialState: PositionState =
 
 export const positionsReducer = createReducer(
     initialState,
-    on(PositionActions.savePosition, (state, position): PositionState => ({ positions: [...state.positions, position] })
-    )
+    on(PositionActions.savePosition, (state, position): PositionState => ({ positions: [...state.positions, position] })),
+    on(PositionActions.clearFriendsPositions, (state): PositionState => ({ ...initialState }))
 )

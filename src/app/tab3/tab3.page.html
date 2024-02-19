@@ -5,12 +5,31 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
- 
   <ion-list>
     <ion-item>
-      <ion-label *ngIf="(isLoggedIn$ | async) === false">Log in</ion-label>
-      <ion-label *ngIf="(isLoggedIn$ | async) === true" (click)="logout()">Log out</ion-label>
+      <ion-label>Save my position every</ion-label>
+      <ion-select placeholder="Interval" [(ngModel)]="interval" ok-text="Select" cancel-text="Cancel" (ionChange)="saveSettings()">
+        <ion-select-option [value]="1">1 min</ion-select-option>
+        <ion-select-option [value]="15">15 min</ion-select-option>
+        <ion-select-option [value]="60">1 hour</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Use map</ion-label>
+      <ion-select placeholder="Map" [(ngModel)]="mapType" ok-text="Select" cancel-text="Cancel" (ionChange)="saveSettings()">
+        <ion-select-option value="osm">Open Street Maps</ion-select-option>
+        <ion-select-option value="google">Google Maps</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label
+        *ngIf="(isLoggedIn$ | async) === false"
+        (click)="openLoginModal()"
+        ><ion-button>Log in</ion-button></ion-label
+      >
+      <ion-label *ngIf="(isLoggedIn$ | async) === true" (click)="logout()"
+        ><ion-button color="danger">Log out</ion-button></ion-label
+      >
     </ion-item>
   </ion-list>
-
 </ion-content>

@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { selectIsLoggedIn } from './store/user.selectors';
 import { PositionService } from './services/position.service';
 import { UserService } from './services/user.service';
+import { selectInterval } from './store/settings.selectors';
+import { SettingsService } from './services/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +17,7 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit, AfterViewInit {
   private isLoggedIn$ = this.store.select(selectIsLoggedIn)
   private isLoggedIn: boolean
+  private interval$ = this.store.select(selectInterval)
   private interval
 
   constructor(
@@ -22,13 +25,21 @@ export class AppComponent implements OnInit, AfterViewInit {
     private store: Store,
     private positionService: PositionService,
     private userService: UserService,
+    private settingsService: SettingsService,
   ) { }
 
   ngOnInit(): void {
+    this.settingsService.loadSettings()
+    this.userService.checkIfTokenPresent();
+
     this.isLoggedIn$.subscribe(value => {
       this.isLoggedIn = value
     })
-    this.userService.checkIfTokenPresent();
+
+    this.interval$.subscribe(minutes => {
+      this.stopWatchingPosition()
+      this.watchPosition(minutes)
+    })
   }
 
   ngAfterViewInit(): void {
@@ -48,7 +59,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.presentAlert()
       }
     } else {
-      this.watchPosition()
+      this.watchPosition(60)
     }
   }
 
@@ -65,11 +76,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     await alert.present()
   }
 
-  private watchPosition(): void {
+  private stopWatchingPosition(): void {
+    console.log('stopWatchingPosition')
+    clearInterval(this.interval)
+  }
+
+  private watchPosition(minutes: number): void {
+    console.log('watchPosition', minutes)
     this.interval = setInterval(async () => {
       if (this.isLoggedIn) {
         this.positionService.savePosition()
       }
-    }, 60 * 1000)
+    }, minutes * 60 * 1000)
   }
 }
