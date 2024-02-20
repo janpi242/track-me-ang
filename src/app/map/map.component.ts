@@ -1,20 +1,38 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core'
+import { Component, AfterViewInit, OnInit, OnDestroy, Input } from '@angular/core'
 import { Geolocation } from '@capacitor/geolocation'
 import { Store } from '@ngrx/store';
 import { selectPositions } from '../store/position.selectors'
 import * as L from 'leaflet'
+import { Observable, Subscription } from 'rxjs';
+
+
+
+
+// 
+
+// ngOnInit(){
+//   this.eventsSubscription = this.events.subscribe(() => doSomething());
+// }
+
+// ngOnDestroy() {
+//   this.eventsSubscription.unsubscribe();
+// }
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements AfterViewInit, OnInit {
+export class MapComponent implements AfterViewInit, OnInit, OnDestroy {
+  @Input() events: Observable<void>;
+
   private map
   private zoom = 13
   private userMarker
   private friendsMarkers = []
   private positions$ = this.store.select(selectPositions)
+  private eventsSubscription: Subscription;
+
 
   constructor(private store: Store) {
     this.positions$.subscribe((positionsFeature) => {
@@ -24,11 +42,16 @@ export class MapComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     L.Icon.Default.imagePath = 'assets/leaflet/'
+    this.eventsSubscription = this.events.subscribe(() => this.centerMap());
   }
 
   ngAfterViewInit(): void {
     this.initMap()
     this.setCurrentPosition()
+  }
+
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe();
   }
 
   updateMarkers(positions): void {
@@ -50,6 +73,14 @@ export class MapComponent implements AfterViewInit, OnInit {
       marker.remove()
     });
     this.friendsMarkers = []
+  }
+
+  async centerMap() {
+    const position = await Geolocation.getCurrentPosition()
+    this.map.setView(
+      new L.LatLng(position.coords.latitude, position.coords.longitude),
+      this.zoom,
+    )
   }
 
   async setCurrentPosition(): Promise<void> {
