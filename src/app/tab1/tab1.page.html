@@ -1,5 +1,6 @@
 <ion-content [fullscreen]="true">
-  <app-map [events]="eventsSubject.asObservable()"></app-map>
+  <!-- <app-map [events]="eventsSubject.asObservable()"></app-map> -->
+  <app-google-map></app-google-map>
   <ion-fab slot="fixed" vertical="bottom" horizontal="start" (click)="emitCenterMap()">
     <ion-fab-button size="small" color="light">
       <ion-icon name="compass"></ion-icon>

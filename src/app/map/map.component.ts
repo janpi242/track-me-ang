@@ -5,19 +5,6 @@ import { selectPositions } from '../store/position.selectors'
 import * as L from 'leaflet'
 import { Observable, Subscription } from 'rxjs';
 
-
-
-
-// 
-
-// ngOnInit(){
-//   this.eventsSubscription = this.events.subscribe(() => doSomething());
-// }
-
-// ngOnDestroy() {
-//   this.eventsSubscription.unsubscribe();
-// }
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
