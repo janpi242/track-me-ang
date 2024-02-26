@@ -62,7 +62,7 @@ export class MapComponent implements AfterViewInit, OnInit, OnDestroy {
     this.friendsMarkers = []
   }
 
-  async centerMap() {
+  async centerMap(): Promise<void> {
     const position = await Geolocation.getCurrentPosition()
     this.map.setView(
       new L.LatLng(position.coords.latitude, position.coords.longitude),
