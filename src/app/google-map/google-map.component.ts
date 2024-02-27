@@ -21,15 +21,14 @@ export class GoogleMapComponent implements OnInit, OnDestroy {
   private userMarker
   private friendsMarkers = []
 
-  constructor(private store: Store) {
+  constructor(private store: Store) {}
+
+  async ngOnInit() {
+    await this.initMap()
+    this.eventsSubscription = this.events.subscribe(() => this.centerMap());
     this.positions$.subscribe((positionsFeature) => {
       this.updateMarkers(positionsFeature.positions)
     })
-  }
-
-  ngOnInit() {
-    this.initMap()
-    this.eventsSubscription = this.events.subscribe(() => this.centerMap());
   }
 
   ngOnDestroy() {

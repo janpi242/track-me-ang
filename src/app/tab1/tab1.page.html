@@ -1,7 +1,18 @@
 <ion-content [fullscreen]="true">
-  <!-- <app-map [events]="eventsSubject.asObservable()"></app-map> -->
-  <app-google-map [events]="eventsSubject.asObservable()"></app-google-map>
-  <ion-fab slot="fixed" vertical="bottom" horizontal="start" (click)="emitCenterMap()">
+  <app-map
+    *ngIf="mapType==='osm'"
+    [events]="eventsSubject.asObservable()"
+  ></app-map>
+  <app-google-map
+    *ngIf="mapType==='google'"
+    [events]="eventsSubject.asObservable()"
+  ></app-google-map>
+  <ion-fab
+    slot="fixed"
+    vertical="bottom"
+    horizontal="start"
+    (click)="emitCenterMap()"
+  >
     <ion-fab-button size="small" color="light">
       <ion-icon name="compass"></ion-icon>
     </ion-fab-button>

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnInit, OnDestroy, Input } from '@angular/core'
+import { Component, OnInit, OnDestroy, Input } from '@angular/core'
 import { Geolocation } from '@capacitor/geolocation'
 import { Store } from '@ngrx/store';
 import { selectPositions } from '../store/position.selectors'
@@ -10,7 +10,7 @@ import { Observable, Subscription } from 'rxjs';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements AfterViewInit, OnInit, OnDestroy {
+export class MapComponent implements OnInit, OnDestroy {
   @Input() events: Observable<void>;
 
   private map
@@ -21,20 +21,16 @@ export class MapComponent implements AfterViewInit, OnInit, OnDestroy {
   private eventsSubscription: Subscription;
 
 
-  constructor(private store: Store) {
-    this.positions$.subscribe((positionsFeature) => {
-      this.updateMarkers(positionsFeature.positions)
-    })
-  }
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     L.Icon.Default.imagePath = 'assets/leaflet/'
     this.eventsSubscription = this.events.subscribe(() => this.centerMap());
-  }
-
-  ngAfterViewInit(): void {
     this.initMap()
     this.setCurrentPosition()
+    this.positions$.subscribe((positionsFeature) => {
+      this.updateMarkers(positionsFeature.positions)
+    })
   }
 
   ngOnDestroy() {
